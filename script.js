@@ -45,6 +45,9 @@ class MegaTicTacToe {
         this.aiSettingsDiv = document.getElementById('ai-settings');
         this.difficultyBtns = document.querySelectorAll('.diff-btn');
         this.scoreValue = document.querySelector('.score-value');
+        
+        console.log('Found mode tabs:', this.modeTabs.length);
+        console.log('Found AI settings div:', this.aiSettingsDiv);
     }
 
     createBoard() {
@@ -92,7 +95,8 @@ class MegaTicTacToe {
         
         // Mode tabs
         this.modeTabs.forEach(tab => {
-            tab.addEventListener('click', () => {
+            tab.addEventListener('click', (e) => {
+                console.log('Mode tab clicked:', tab.dataset.mode);
                 this.setGameMode(tab.dataset.mode);
             });
         });
@@ -416,16 +420,22 @@ class MegaTicTacToe {
     }
 
     setGameMode(mode) {
+        console.log('setGameMode called with:', mode);
         this.gameMode = mode;
         
         // Update UI
         this.modeTabs.forEach(tab => {
-            tab.classList.toggle('active', tab.dataset.mode === mode);
+            const isActive = tab.dataset.mode === mode;
+            console.log(`Tab ${tab.dataset.mode}: ${isActive ? 'ACTIVE' : 'inactive'}`);
+            tab.classList.toggle('active', isActive);
         });
         
         // Show/hide AI settings
         if (this.aiSettingsDiv) {
+            console.log('Showing AI settings:', mode === 'ai');
             this.aiSettingsDiv.style.display = mode === 'ai' ? 'block' : 'none';
+        } else {
+            console.log('AI settings div not found!');
         }
         
         // Update player names

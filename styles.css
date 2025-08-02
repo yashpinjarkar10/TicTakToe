@@ -153,6 +153,14 @@ body {
     transition: all 0.3s ease;
     font-weight: 600;
     color: var(--text-secondary);
+    /* Reset default button styles */
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    outline: none;
+    font-family: inherit;
+    font-size: inherit;
+    text-align: center;
 }
 
 .mode-tab:hover {
@@ -161,10 +169,10 @@ body {
 }
 
 .mode-tab.active {
-    background: var(--primary-gradient);
-    color: var(--text-white);
-    border-color: rgba(255, 255, 255, 0.3);
-    box-shadow: var(--shadow-lg);
+    background: var(--primary-gradient) !important;
+    color: var(--text-white) !important;
+    border-color: rgba(255, 255, 255, 0.3) !important;
+    box-shadow: var(--shadow-lg) !important;
 }
 
 .mode-icon {
