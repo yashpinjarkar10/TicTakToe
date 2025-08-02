@@ -28,6 +28,7 @@ class MegaTicTacToe {
         this.attachEventListeners();
         this.updateGameStatus();
         this.updateStats();
+        this.updatePlayerNames(); // Ensure player names are set correctly on load
     }
 
     initializeDOM() {
@@ -41,7 +42,7 @@ class MegaTicTacToe {
         this.statsModal = document.getElementById('stats-modal');
         this.closeModalBtns = document.querySelectorAll('.close-btn');
         this.modeTabs = document.querySelectorAll('.mode-tab');
-        this.aiSettingsDiv = document.querySelector('.ai-settings');
+        this.aiSettingsDiv = document.getElementById('ai-settings');
         this.difficultyBtns = document.querySelectorAll('.diff-btn');
         this.scoreValue = document.querySelector('.score-value');
     }
