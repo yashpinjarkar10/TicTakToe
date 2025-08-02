@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#667eea">
+    <title>Mega Tic-Tac-Toe • Strategic Battle</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="manifest" href="manifest.json">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One:wght@400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Top Brand Header -->
+        <header class="brand-header">
+            <div class="logo-section">
+                <div class="logo-icon">⚡</div>
+                <div class="brand-text">
+                    <h1 class="app-title">MEGA TTT</h1>
+                    <p class="app-subtitle">Strategic Battle</p>
+                </div>
+            </div>
+            <div class="score-badge" id="score-display">
+                <span class="score-label">Games</span>
+                <span class="score-value">0-0</span>
+            </div>
+        </header>
+
+        <!-- Game Mode Panel -->
+        <section class="mode-panel">
+            <div class="mode-selector">
+                <button class="mode-tab active" data-mode="human">
+                    <span class="mode-icon">👥</span>
+                    <span class="mode-text">2 Players</span>
+                </button>
+                <button class="mode-tab" data-mode="ai">
+                    <span class="mode-icon">🤖</span>
+                    <span class="mode-text">vs AI</span>
+                </button>
+            </div>
+            
+            <div class="ai-settings" id="ai-settings" style="display: none;">
+                <div class="difficulty-selector">
+                    <label class="setting-label">AI Level:</label>
+                    <div class="difficulty-options">
+                        <button class="diff-btn" data-level="easy">Easy</button>
+                        <button class="diff-btn active" data-level="medium">Medium</button>
+                        <button class="diff-btn" data-level="hard">Hard</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Game Status Bar -->
+        <section class="status-bar">
+            <div class="player-indicator">
+                <div class="player-avatar current" id="player-x">
+                    <span class="player-symbol">X</span>
+                    <span class="player-name">Player 1</span>
+                </div>
+                <div class="vs-divider">VS</div>
+                <div class="player-avatar" id="player-o">
+                    <span class="player-symbol">O</span>
+                    <span class="player-name">Player 2</span>
+                </div>
+            </div>
+            <div class="game-message" id="game-status">
+                Choose any cell to begin your strategic battle!
+            </div>
+        </section>
+
+        <!-- Main Game Board -->
+        <main class="game-arena">
+            <div class="board-container">
+                <div class="mega-board" id="mega-board">
+                    <!-- 9 mini-boards will be generated here -->
+                </div>
+                <div class="board-overlay" id="board-overlay" style="display: none;">
+                    <div class="victory-animation">
+                        <div class="victory-icon">🏆</div>
+                        <div class="victory-text">Victory!</div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Control Panel */
+        <section class="control-panel">
+            <button class="action-btn primary" id="new-game-btn">
+                <span class="btn-icon">🎮</span>
+                <span class="btn-text">New Game</span>
+            </button>
+            <button class="action-btn secondary" id="rules-btn">
+                <span class="btn-icon">📋</span>
+                <span class="btn-text">Rules</span>
+            </button>
+            <button class="action-btn tertiary" id="stats-btn">
+                <span class="btn-icon">📊</span>
+                <span class="btn-text">Stats</span>
+            </button>
+        </section>
+    </div>
+
+    <!-- Enhanced Rules Modal -->
+    <div class="modal-overlay" id="rules-modal">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h2>🎯 Game Rules</h2>
+                <button class="close-btn" id="close-modal">×</button>
+            </div>
+            <div class="modal-content">
+                <div class="rule-section">
+                    <h3>🎮 Objective</h3>
+                    <p>Claim three mini-boards in a row on the mega-board to achieve victory!</p>
+                </div>
+                
+                <div class="rule-section">
+                    <h3>⚡ How to Play</h3>
+                    <ol>
+                        <li><strong>First Move:</strong> Player X can choose any of the 81 cells</li>
+                        <li><strong>Directed Play:</strong> Your move determines which mini-board your opponent must play in next</li>
+                        <li><strong>Free Choice:</strong> If the target mini-board is won or full, play anywhere available</li>
+                        <li><strong>Mini Victory:</strong> Get three in a row within a mini-board to claim it</li>
+                        <li><strong>Ultimate Victory:</strong> First to claim three mini-boards in a row wins!</li>
+                    </ol>
+                </div>
+                
+                <div class="rule-section">
+                    <h3>💡 Strategy Tips</h3>
+                    <ul>
+                        <li>Think ahead - your move affects where opponent plays next</li>
+                        <li>Control the center mini-boards for maximum flexibility</li>
+                        <li>Force opponents into disadvantageous positions</li>
+                        <li>Balance mini-board wins with mega-board positioning</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Stats Modal -->
+    <div class="modal-overlay" id="stats-modal">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h2>📊 Game Statistics</h2>
+                <button class="close-btn" id="close-stats-modal">×</button>
+            </div>
+            <div class="modal-content">
+                <div class="stats-grid" id="stats-content">
+                    <div class="stat-card">
+                        <div class="stat-number">0</div>
+                        <div class="stat-label">Games Played</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">0</div>
+                        <div class="stat-label">Player X Wins</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">0</div>
+                        <div class="stat-label">Player O Wins</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">0</div>
+                        <div class="stat-label">Draws</div>
+                    </div>
+                </div>
+                <button class="action-btn tertiary" id="reset-stats-btn">Reset Stats</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
